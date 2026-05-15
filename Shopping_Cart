@@ -1,0 +1,115 @@
+# q3_shopping_cart.py
+
+# ---------------- PART A ----------------
+
+def add_item(item, cart=[]):
+    cart.append(item)
+    return cart
+
+
+print(add_item("apple"))
+print(add_item("banana"))
+print(add_item("milk", cart=["bread"]))
+print(add_item("eggs"))
+
+
+# ---------------- PART B ----------------
+
+def add_item_fixed(item, cart=None):
+
+    if cart is None:
+        cart = []
+
+    cart.append(item)
+
+    return cart
+
+
+print("\nCorrect Function Output:\n")
+
+print(add_item_fixed("apple"))
+print(add_item_fixed("banana"))
+print(add_item_fixed("eggs"))
+
+
+# ---------------- PART C ----------------
+
+# Create Cart
+def create_cart(owner, discount=0):
+
+    return {
+        "owner": owner,
+        "items": [],
+        "discount": discount
+    }
+
+
+# Add To Cart
+def add_to_cart(cart, name, price, qty=1):
+
+    item = {
+        "name": name,
+        "price": price,
+        "qty": qty
+    }
+
+    cart["items"].append(item)
+
+
+# Update Tuple Price
+def update_price(price_tuple, new_price):
+
+    # Tuples are immutable
+    # So this will raise TypeError
+
+    price_tuple[0] = new_price
+
+
+# Calculate Total
+def calculate_total(cart):
+
+    total = 0
+
+    for item in cart["items"]:
+
+        total += item["price"] * item["qty"]
+
+    discount_amount = total * (cart["discount"] / 100)
+
+    final_total = total - discount_amount
+
+    return final_total
+
+
+# Create Two Independent Carts
+cart1 = create_cart("Rahul", 10)
+cart2 = create_cart("Sneha", 5)
+
+# Add Items to Cart 1
+add_to_cart(cart1, "Laptop", 50000, 1)
+add_to_cart(cart1, "Mouse", 1000, 2)
+
+# Add Items to Cart 2
+add_to_cart(cart2, "Phone", 30000, 1)
+add_to_cart(cart2, "Charger", 1500, 1)
+
+# Display Carts
+print("\nCart 1")
+print(cart1)
+
+print("\nCart 2")
+print(cart2)
+
+# Calculate Totals
+print("\nCart 1 Total:", calculate_total(cart1))
+print("Cart 2 Total:", calculate_total(cart2))
+
+
+# Tuple Example
+price_data = (500,)
+
+try:
+    update_price(price_data, 700)
+
+except TypeError as e:
+    print("\nError:", e)
