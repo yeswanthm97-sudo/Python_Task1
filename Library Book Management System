@@ -1,0 +1,100 @@
+# q2_library_system.py
+
+def add_book(catalog, book_id, title, author, year):
+
+    catalog[book_id] = (title, author, year)
+    print("Book added successfully")
+
+
+
+def borrow_book(catalog, borrowed_books, book_id):
+
+    if book_id in catalog:
+
+        if book_id not in borrowed_books:
+            borrowed_books.append(book_id)
+            print("Book borrowed successfully")
+
+        else:
+            print("Book already borrowed")
+
+    else:
+        print("Book ID not found")
+
+
+
+def return_book(borrowed_books, book_id):
+
+    if book_id in borrowed_books:
+        borrowed_books.remove(book_id)
+        print("Book returned successfully")
+
+    else:
+        print("Book was not borrowed")
+
+
+# Register Member
+def register_member(members, member_id):
+
+    members.add(member_id)
+    print("Member registered:", member_id)
+
+
+# Show Available Books
+def show_available(catalog, borrowed_books):
+
+    print("\nAvailable Books:\n")
+
+    for book_id, details in catalog.items():
+
+        if book_id not in borrowed_books:
+
+            title, author, year = details
+
+            print("Book ID:", book_id)
+            print("Title:", title)
+            print("Author:", author)
+            print("Year:", year)
+            print()
+
+
+# Main Function
+def main():
+
+    catalog = {}
+    borrowed_books = []
+    members = set()
+
+    # Add Books
+    add_book(catalog, 1, "Python Basics", "John Smith", 2020)
+    add_book(catalog, 2, "Data Science", "David Lee", 2021)
+    add_book(catalog, 3, "AI Fundamentals", "Sara Khan", 2022)
+    add_book(catalog, 4, "Machine Learning", "James Brown", 2023)
+
+    # Register Members
+    register_member(members, 101)
+    register_member(members, 102)
+    register_member(members, 103)
+
+    # Duplicate member
+    register_member(members, 101)
+
+    print("\nMembers:", members)
+
+    # Borrow Books
+    borrow_book(catalog, borrowed_books, 1)
+    borrow_book(catalog, borrowed_books, 3)
+
+    print("\nBorrowed Books:", borrowed_books)
+
+    # Return Book
+    return_book(borrowed_books, 1)
+
+    print("\nBorrowed Books After Return:", borrowed_books)
+
+    # Display Available Books
+    show_available(catalog, borrowed_books)
+
+
+# Run Program
+main()
